@@ -25,14 +25,15 @@ void WarlockMagicAbility::cast(Unit* enemy) {
 }
 
 Demon* WarlockMagicAbility::evokeDemon() {
-//    static int demonN = 1;
-//
-//    std::string name = "Demon";
-//    name += std::to_string(demonN);
-//    char* title = new char [name.length()];
-//    strcpy(title, name.c_str());
+    static int demonN = 1;
 
-//    demonN += 1;
+    std::string name = "Demon";
+    name += std::to_string(demonN);
 
-    return new Demon("Demon1", 150, 20);
+    char* title = new char [name.length()+1];
+    strcpy(title, name.c_str());
+
+    demonN += 1;
+
+    return new Demon(title, 150, 20);
 }

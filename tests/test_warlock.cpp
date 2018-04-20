@@ -6,6 +6,7 @@
 #include "../spellcaster/Warlock.h"
 #include "../unit/Soldier.h"
 #include "../unit/Demon.h"
+#include <string.h>
 
 TEST_CASE( "Test Warlock class" ) {
     Warlock* warlock = new Warlock("Warlock", 100, 10, 100);
@@ -215,17 +216,26 @@ TEST_CASE( "Test Warlock class" ) {
 
     SECTION ( "Warlock::evoke Demon test" ) {
         Demon* demon1 = warlock->evokeDemon();
-
         REQUIRE( demon1->getHitPoints() == 150 );
         REQUIRE( demon1->getHitPointsLimit() == 150 );
-        REQUIRE( demon1->getTitle() == "Demon1" );
+        REQUIRE( !strcmp(demon1->getTitle(), "Demon1") );
         REQUIRE( demon1->getDamage() == 20 );
         REQUIRE( demon1->getIsUndead() == true );
         REQUIRE( demon1->getIsTurnable() == true );
         REQUIRE( demon1->getIsWolf() == false );
 
+        Demon* demon2 = warlock->evokeDemon();
+        REQUIRE( demon2->getHitPoints() == 150 );
+        REQUIRE( demon2->getHitPointsLimit() == 150 );
+        REQUIRE( !strcmp(demon2->getTitle(), "Demon2") );
+        REQUIRE( demon2->getDamage() == 20 );
+        REQUIRE( demon2->getIsUndead() == true );
+        REQUIRE( demon2->getIsTurnable() == true );
+        REQUIRE( demon2->getIsWolf() == false );
+
         warlock->attack(demon1);
         REQUIRE( warlock->getHitPoints() == 85 );
         REQUIRE( demon1->getHitPoints() == 140 );
+
     }
 }
